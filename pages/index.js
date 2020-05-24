@@ -27,7 +27,7 @@ export default () => {
           Blond:ish ft. Bahramji{' '}
         </span>
       </div>
-      <div className="relative flex flex-row items-center justify-center w-4/5 mx-auto rounded-lg shadow-xl">
+      <div className="relative flex flex-row items-center justify-center w-4/5 mx-auto rounded-lg shadow-xl md:w-1/3">
         <div className="absolute w-full h-full bg-black bg-opacity-50 rounded-lg"></div>
         <img src={`/images/${bg}.jpg`} className="rounded-lg" />
         <div
@@ -46,7 +46,7 @@ export default () => {
         </div>
       </div>
       <audio
-        className="w-3/5 my-12 transform scale-150 rounded-full shadow-xl"
+        className="w-3/5 my-12 transform scale-150 rounded-full shadow-xl md:w-1/3"
         id="audio-element"
         src="/mp3/Blondish_ft_Bahramji_-_Laberinto[Youtubetomp3.sc].mp3"
         autoPlay={false}
