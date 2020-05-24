@@ -74,6 +74,17 @@ const nextConfig = {
         },
       },
       {
+        urlPattern: /\.mp3$/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'cached-songs',
+          expiration: {
+            maxEntries: 2,
+            maxAgeSeconds: 10 * 24 * 60 * 60, // 10 days
+          },
+        },
+      },
+      {
         urlPattern: /\.(png|svg|jpg|jpeg|ico)$/,
         handler: 'CacheFirst',
         options: {

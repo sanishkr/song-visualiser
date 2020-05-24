@@ -1,64 +1,79 @@
-import React, { Component } from 'react';
-
-import styled from 'styled-components';
+/* eslint-disable jsx-a11y/media-has-caption */
+import React, { useEffect, useState } from 'react';
+import AudioSpectrum from 'react-audio-spectrum';
 import tw from 'twin.macro';
+import styled, { css } from 'styled-components';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { templates } from '../config/visualisations';
 
-import {
-  actionCreators as PostsActionsCreators,
-  selectors,
-} from '../store/posts';
-import Header from '../components/Header';
-
-const Container = styled.div`
-  ${tw`flex flex-col items-center justify-center min-h-screen text-xl bg-gray-800`};
-  margin: 10px;
-`;
-
-class Page1 extends Component {
-  static async getInitialProps({ store, isServer, query, res }) {
-    const params = { id: 1 };
-    await Promise.all([
-      store.dispatch(PostsActionsCreators.getOnePost(params)),
-    ]);
-    return { ...isServer };
-  }
-  componentDidMount = () => {
-    this.props.getPosts();
-    // this.props.getOnePost({ id: 1 });
-  };
-  render() {
-    return (
-      <>
-        <Header></Header>
-        <div css={tw`text-center`}>
-          <Container>
-            Hello World!!
-            <p css={tw`text-blue-300`}>
-              I'm using <code>tailwind</code> and <code>styled-components</code>{' '}
-              together in {process.env.NODE_ENV} Env.
-            </p>
-          </Container>
+export default () => {
+  const [bg, setBg] = useState('us1');
+  const [vis, setVis] = useState('neon');
+  const [visConfig, setVisConfig] = useState(templates['neon']);
+  useEffect(() => {
+    const audioEle = document.getElementById('audio-element');
+    // setVisConfig(templates[vis]);
+    audioEle.play();
+  }, [vis]);
+  // useEffect(() => {
+  //   setVisConfig({});
+  //   setVisConfig(JSON.parse(JSON.stringify(templates[vis])));
+  // }, [vis]);
+  return (
+    <div className="flex flex-col items-center justify-center w-full h-screen">
+      <div className="flex flex-col items-start mb-8 font-serif text-right">
+        <span className="text-4xl font-bold text-gray-900">Laberinto</span>
+        <span className="font-mono text-sm font-light text-gray-700">
+          Blond:ish ft. Bahramji{' '}
+        </span>
+      </div>
+      <div className="relative flex flex-row items-center justify-center w-4/5 mx-auto rounded-lg shadow-xl">
+        <div className="absolute w-full h-full bg-black bg-opacity-50 rounded-lg"></div>
+        <img src={`/images/${bg}.jpg`} className="rounded-lg" />
+        <div
+          className="absolute w-4/5"
+          css={css`
+            & > canvas {
+              ${tw`w-full`}
+            }
+          `}
+        >
+          <AudioSpectrum
+            id="audio-canvas"
+            audioId={'audio-element'}
+            {...visConfig}
+          />
         </div>
-      </>
-    );
-  }
-}
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      getPosts: PostsActionsCreators.getPosts,
-      // getOnePost: PostsActionsCreators.getOnePost,
-    },
-    dispatch,
+      </div>
+      <audio
+        className="w-3/5 my-12 transform scale-150 rounded-full shadow-xl"
+        id="audio-element"
+        src="/mp3/Blondish_ft_Bahramji_-_Laberinto[Youtubetomp3.sc].mp3"
+        autoPlay={false}
+        controls={true}
+      />
+      {/* <select
+        className="capitalize"
+        defaultValue={vis}
+        onChange={e => setVis(e.target.value)}
+      >
+        {Object.keys(templates).map((temp, i) => (
+          <option name="template" value={temp} key={i + 1}>
+            {temp}
+          </option>
+        ))}
+      </select>
+      <select
+        className="capitalize"
+        defaultValue={bg}
+        onChange={e => setBg(e.target.value)}
+      >
+        {['us1', 'us2'].map((temp, i) => (
+          <option name="bg" value={temp} key={i + 1}>
+            {temp}
+          </option>
+        ))}
+      </select> */}
+    </div>
   );
-
-const mapStateToProps = store => ({
-  posts: selectors.getPosts(store),
-  post: selectors.getOnePost(store),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Page1);
+};
