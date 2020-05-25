@@ -20,18 +20,18 @@ export default () => {
   //   setVisConfig(JSON.parse(JSON.stringify(templates[vis])));
   // }, [vis]);
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen">
-      <div className="flex flex-col items-start mb-8 font-serif text-right">
-        <span className="text-4xl font-bold text-gray-900">Laberinto</span>
-        <span className="font-mono text-sm font-light text-gray-700">
+    <div tw="flex flex-col items-center justify-center w-full h-screen">
+      <div tw="flex flex-col items-start mb-8 font-serif text-right">
+        <span tw="text-4xl font-bold text-gray-900">Laberinto</span>
+        <span tw="font-mono text-sm font-light text-gray-700">
           Blond:ish ft. Bahramji{' '}
         </span>
       </div>
-      <div className="relative flex flex-row items-center justify-center w-4/5 mx-auto rounded-lg shadow-xl md:w-1/3">
-        <div className="absolute w-full h-full bg-black bg-opacity-50 rounded-lg"></div>
-        <img src={`/images/${bg}.jpg`} className="rounded-lg" />
+      <div tw="relative flex flex-row items-center justify-center w-4/5 mx-auto rounded-lg shadow-xl md:w-1/3">
+        <div tw="absolute w-full h-full bg-black bg-opacity-50 rounded-lg"></div>
+        <img src={`/images/${bg}.jpg`} tw="rounded-lg" />
         <div
-          className="absolute w-4/5"
+          tw="absolute w-4/5"
           css={css`
             & > canvas {
               ${tw`w-full`}
@@ -46,14 +46,14 @@ export default () => {
         </div>
       </div>
       <audio
-        className="w-3/5 my-12 transform scale-150 rounded-full shadow-xl md:w-1/3"
+        tw="w-3/5 my-12 transform scale-150 rounded-full shadow-xl md:w-1/3"
         id="audio-element"
         src="/mp3/Blondish_ft_Bahramji_-_Laberinto[Youtubetomp3.sc].mp3"
         autoPlay={false}
         controls={true}
       />
       {/* <select
-        className="capitalize"
+        tw="capitalize"
         defaultValue={vis}
         onChange={e => setVis(e.target.value)}
       >
@@ -64,7 +64,7 @@ export default () => {
         ))}
       </select>
       <select
-        className="capitalize"
+        tw="capitalize"
         defaultValue={bg}
         onChange={e => setBg(e.target.value)}
       >
