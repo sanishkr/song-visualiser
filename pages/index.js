@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { findDOMNode } from 'react-dom';
 import tw from 'twin.macro';
 import styled, { css } from 'styled-components';
-import AudioSpectrum from 'react-audio-spectrum';
+import AudioSpectrum from '../utils/AudioSpectrum';
 import screenfull from 'screenfull';
 
 import ReactAudioPlayer from 'react-audio-player';
@@ -210,18 +210,6 @@ export default () => {
           <TrackTitle isFS={isFS}>Laberinto</TrackTitle>
           <TrackInfo isFS={isFS}>Blond:ish ft. Bahramji </TrackInfo>
         </SongMetaWrapper>
-        <StyledSkin
-          onMouseOver={() => {
-            setShowSkin(true);
-            setTimeout(() => setShowSkin(false), 3000);
-          }}
-          show={showSkin}
-          isFS={isFS}
-        >
-          <FullScreenIcon onClick={handleClickFullscreen}>
-            {isFS ? <ExitFSIcon /> : <FSIcon />}
-          </FullScreenIcon>
-        </StyledSkin>
         {bg && vis ? (
           <>
             <StyledImg src={`/images/${bg}.jpg`} isFS={isFS} />
@@ -244,6 +232,22 @@ export default () => {
             controls
           />
         </AudioWrapper>
+        <StyledSkin
+          onMouseMove={() => {
+            setShowSkin(true);
+            setTimeout(() => setShowSkin(false), 3000);
+          }}
+          onMouseOver={() => {
+            setShowSkin(true);
+            setTimeout(() => setShowSkin(false), 3000);
+          }}
+          show={showSkin}
+          isFS={isFS}
+        >
+          <FullScreenIcon onClick={handleClickFullscreen}>
+            {isFS ? <ExitFSIcon /> : <FSIcon />}
+          </FullScreenIcon>
+        </StyledSkin>
       </StyledWrapper>
       {/* <audio
         tw="w-3/5 my-12 transform scale-150 rounded-full shadow-xl md:w-1/3"

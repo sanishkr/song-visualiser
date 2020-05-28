@@ -79,17 +79,13 @@ const templates = {
     gap: 10,
   },
   white: {
-    height: 200,
+    height: 50,
     width: 500,
-    capColor: 'azure',
-    capHeight: 2,
     meterWidth: 2,
-    meterCount: 912,
-    meterColor: [
-      { stop: 0, color: 'black' },
-      { stop: 1, color: 'white' },
-    ],
-    gap: 1,
+    meterCount: 350,
+    meterColor: 'white',
+    gap: 1.5,
+    centerAxis: true,
   },
 };
 
