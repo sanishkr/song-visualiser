@@ -38,6 +38,8 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <script src="/scripts/play-spotify.js"></script>
       </html>
     );
   }
