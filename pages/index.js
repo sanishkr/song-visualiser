@@ -210,25 +210,25 @@ export default () => {
           <TrackTitle isFS={isFS}>Laberinto</TrackTitle>
           <TrackInfo isFS={isFS}>Blond:ish ft. Bahramji </TrackInfo>
         </SongMetaWrapper>
-        <StyledSkin
-          onMouseMove={() => {
-            setShowSkin(true);
-            setTimeout(() => setShowSkin(false), 3000);
-          }}
-          onMouseOver={() => {
-            setShowSkin(true);
-            setTimeout(() => setShowSkin(false), 3000);
-          }}
-          show={showSkin}
-          isFS={isFS}
-        >
-          <FullScreenIcon onClick={handleClickFullscreen}>
-            {isFS ? <ExitFSIcon /> : <FSIcon />}
-          </FullScreenIcon>
-        </StyledSkin>
         {bg && vis ? (
           <>
             <StyledImg src={`/images/${bg}.jpg`} isFS={isFS} />
+            <StyledSkin
+              onMouseMove={() => {
+                setShowSkin(true);
+                setTimeout(() => setShowSkin(false), 3000);
+              }}
+              onMouseOver={() => {
+                setShowSkin(true);
+                setTimeout(() => setShowSkin(false), 3000);
+              }}
+              show={showSkin}
+              isFS={isFS}
+            >
+              <FullScreenIcon onClick={handleClickFullscreen}>
+                {isFS ? <ExitFSIcon /> : <FSIcon />}
+              </FullScreenIcon>
+            </StyledSkin>
             <CanvasWrapper>
               <AudioSpectrum
                 id="audio-canvas"
