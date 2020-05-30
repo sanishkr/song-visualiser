@@ -20,11 +20,11 @@ class NextApp extends App {
           <link rel="manifest" href="manifest.json" />
           <link rel="icon" sizes="192x192" href="favicon.ico" />
           <link rel="apple-touch-icon" href="favicon.ico" />
-          <title>Music Visualisation | PWA</title>
+          <title>Spectrify | Music Visualisation | PWA</title>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta
             name="Description"
-            content="Music Visualisation using NextJS, tailwind.css, Styled Components | PWA"
+            content="Spectrify | Music Visualisation using NextJS, tailwind.css, Styled Components | PWA"
           />
           {/* <link rel="icon" sizes="192x192" href={favicon} /> */}
         </Head>

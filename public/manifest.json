@@ -1,6 +1,6 @@
 {
-  "short_name": "Music Player",
-  "name": "Music Visualisation Player",
+  "short_name": "Spectrify",
+  "name": "Spectrify | Music Visualisor",
   "description": "Music Visualisation using NextJS boilerplate with Tailwind CSS and Styled-Components",
   "dir": "ltr",
   "lang": "en",
