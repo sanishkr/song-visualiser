@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { findDOMNode } from 'react-dom';
 import tw from 'twin.macro';
 import styled, { css } from 'styled-components';
 import AudioSpectrum from '../utils/AudioSpectrum';
 import screenfull from 'screenfull';
+import _ from 'lodash';
+// import NoSleep from 'nosleep.js';
 
 import ReactAudioPlayer from 'react-audio-player';
 // import AudioPlayer from 'react-h5-audio-player';
@@ -13,6 +15,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import { templates } from '../config/visualisations';
 import { KFAnimations } from '../utils';
 import VideoPlayer from '../components/VideoPlayer';
+import Image from '../atoms/Image';
 
 const FSIcon = () => (
   <svg
@@ -147,7 +150,7 @@ const CanvasWrapper = styled.div`
     ${tw`w-full`}
   }
 `;
-const StyledImg = styled.img`
+const StyledImg = styled(Image)`
   ${({ isFS }) =>
     isFS
       ? css``
@@ -160,7 +163,7 @@ const SongMetaWrapper = styled.div`
   ${({ isFS }) =>
     isFS
       ? css`
-          ${tw`top-0 items-center`}
+          ${tw`top-0 z-10 items-center`}
         `
       : css`
           top: -6rem;
@@ -179,15 +182,26 @@ export default () => {
   const [vis, setVis] = useState();
   const [isFS, setIsFS] = useState(false);
   const [showSkin, setShowSkin] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const ref = useRef();
   const fullPlayer = useRef();
+  // const noSleep = new NoSleep();
   // const [visConfig, setVisConfig] = useState(templates['neon']);
+  let pref = {};
   useEffect(() => {
+    pref = JSON.parse(localStorage.getItem('preferences')) || {};
     const audioEle = document.getElementById('audio-element');
     // setVisConfig(templates[vis]);
-    setBg(getRandomItem(['us1', 'us2', 'us3', 'us4', 'us5']));
-    setVis(getRandomItem(Object.keys(templates)));
-    audioEle.play();
+    setBg(pref.bg || getRandomItem(['us1', 'us2', 'us3', 'us4', 'us5']));
+    setVis(pref.skin || getRandomItem(Object.keys(templates)));
+    setTimeout(() => {
+      audioEle
+        .play()
+        .then(() => {
+          setPlaying(true);
+        })
+        .catch(console.log);
+    }, 500);
   }, []);
   const handleClickFullscreen = () => {
     if (screenfull.isFullscreen) {
@@ -197,6 +211,25 @@ export default () => {
     }
     setIsFS(!screenfull.isFullscreen);
   };
+  // useEffect(() => {
+  //   setIsFS(screenfull.isFullscreen);
+  // }, [screenfull.isFullscreen]);
+  const debouncedSkinChange = useCallback(
+    _.throttle(
+      () => {
+        setShowSkin(true);
+        setTimeout(() => setShowSkin(false), 3000);
+      },
+      3000,
+      { leading: true },
+    ),
+    [],
+  );
+
+  // useEffect(() => {
+  //   pref.nosleep && playing ? noSleep.enable() : noSleep.disable();
+  // }, [noSleep, playing]);
+
   // useEffect(() => {
   //   setVisConfig({});
   //   setVisConfig(JSON.parse(JSON.stringify(templates[vis])));
@@ -210,18 +243,18 @@ export default () => {
           <TrackTitle isFS={isFS}>Laberinto</TrackTitle>
           <TrackInfo isFS={isFS}>Blond:ish ft. Bahramji </TrackInfo>
         </SongMetaWrapper>
+        <StyledImg
+          alt="audio cover image"
+          src={`/images/${bg}.jpg`}
+          height="300"
+          width="400"
+          isFS={isFS}
+        />
         {bg && vis ? (
           <>
-            <StyledImg src={`/images/${bg}.jpg`} isFS={isFS} />
             <StyledSkin
-              onMouseMove={() => {
-                setShowSkin(true);
-                setTimeout(() => setShowSkin(false), 3000);
-              }}
-              onMouseOver={() => {
-                setShowSkin(true);
-                setTimeout(() => setShowSkin(false), 3000);
-              }}
+              onMouseMove={debouncedSkinChange}
+              onMouseOver={debouncedSkinChange}
               show={showSkin}
               isFS={isFS}
             >
@@ -229,7 +262,10 @@ export default () => {
                 {isFS ? <ExitFSIcon /> : <FSIcon />}
               </FullScreenIcon>
             </StyledSkin>
-            <CanvasWrapper>
+            <CanvasWrapper
+              onMouseMove={debouncedSkinChange}
+              onMouseOver={debouncedSkinChange}
+            >
               <AudioSpectrum
                 id="audio-canvas"
                 audioId={'audio-element'}
@@ -246,6 +282,9 @@ export default () => {
             autoPlay={false}
             volume={1}
             controls
+            onPlay={() => setPlaying(true)}
+            onPause={() => setPlaying(false)}
+            onEnd={() => setPlaying(false)}
           />
         </AudioWrapper>
       </StyledWrapper>
