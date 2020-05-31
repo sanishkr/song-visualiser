@@ -180,6 +180,7 @@ const TrackInfo = styled.div`
 export default () => {
   const [bg, setBg] = useState();
   const [vis, setVis] = useState();
+  const [vol, setVol] = useState(0.9);
   const [isFS, setIsFS] = useState(false);
   const [showSkin, setShowSkin] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -194,6 +195,7 @@ export default () => {
     // setVisConfig(templates[vis]);
     setBg(pref.bg || getRandomItem(['us1', 'us2', 'us3', 'us4', 'us5']));
     setVis(pref.skin || getRandomItem(Object.keys(templates)));
+    setVol(Number(pref.volume) || vol);
     setTimeout(() => {
       audioEle
         .play()
@@ -280,11 +282,16 @@ export default () => {
             id="audio-element"
             src="/mp3/Blondish_ft_Bahramji_-_Laberinto[Youtubetomp3.sc].mp3"
             autoPlay={false}
-            volume={1}
+            volume={vol}
             controls
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
-            onEnd={() => setPlaying(false)}
+            onEnded={() => setPlaying(false)}
+            onVolumeChanged={e => {
+              setVol(e.target.volume);
+              // pref.volume = e.target.volume;
+              // localStorage.setItem('preferences', JSON.stringify(pref));
+            }}
           />
         </AudioWrapper>
       </StyledWrapper>
