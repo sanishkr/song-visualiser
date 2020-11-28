@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
-import { withRouter } from 'next/router';
+import { Router, withRouter } from 'next/router';
 import { authEndpoint, clientId, redirectUri, scopes } from './config';
 import Player from './Player';
 // import logo from "./logo.svg";
 import './App.css';
+import { route } from 'next/dist/next-server/server/router';
 
 // const hash = dynamic(() => import('./hash'))
 
@@ -87,12 +88,20 @@ class App extends Component {
       .then(res => res.json())
       .then(data => {
         // Checks if the data is not empty
-        // console.table(data);
+        console.table(data);
         if (!data) {
           this.setState({
             no_data: true,
           });
           return;
+        }
+
+        if (data.error.status === 401) {
+          const { router } = this.props;
+          this.setState({
+            token: null,
+          });
+          router.push(router.route);
         }
 
         this.setState(
@@ -157,10 +166,7 @@ class App extends Component {
             />
           )}
           {this.state.no_data && (
-            <p>
-              You need to be playing a song on Spotify, for something to appear
-              here.
-            </p>
+            <p>Connect to Spotify on some device and play some track.</p>
           )}
         </header>
       </div>
