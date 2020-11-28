@@ -88,24 +88,18 @@ class App extends Component {
       .then(res => res.json())
       .then(data => {
         // Checks if the data is not empty
-        console.table(data);
         if (!data) {
           this.setState({
             no_data: true,
           });
-          return;
-        }
-
-        if (data.error.status === 401) {
+        } else if (data?.error?.status === 401) {
           const { router } = this.props;
           this.setState({
             token: null,
           });
           router.push(router.route);
-        }
-
-        this.setState(
-          {
+        } else {
+          this.setState({
             item: data.item,
             is_playing: data.is_playing,
             progress_ms: data.progress_ms,
@@ -113,13 +107,9 @@ class App extends Component {
             shuffle_state: data.shuffle_state,
             currently_playing_type: data.currently_playing_type,
             device: data.device,
-            no_data: false /* We need to "reset" the boolean, in case the
-                          user does not give F5 and has opened his Spotify. */,
-          },
-          () => {
-            // this.getLyrics()
-          },
-        );
+            no_data: false,
+          });
+        }
       })
       .catch(e => {
         console.error(e);
@@ -140,6 +130,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log(this.state);
     return (
       <div className="App">
         <header className="App-header">
@@ -154,7 +145,7 @@ class App extends Component {
               Login to Spotify
             </a>
           )}
-          {this.state.token && !this.state.no_data && (
+          {this.state.token && !this.state.no_data ? (
             <Player
               item={this.state.item}
               is_playing={this.state.is_playing}
@@ -164,7 +155,7 @@ class App extends Component {
               device={this.state.device}
               currently_playing_type={this.state.currently_playing_type}
             />
-          )}
+          ) : null}
           {this.state.no_data && (
             <p>Connect to Spotify on some device and play some track.</p>
           )}
