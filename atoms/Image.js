@@ -50,7 +50,7 @@ const StyledImage = styled.img`
   ${tw`rounded-lg`}
 `;
 
-export default ({
+const Image = ({
   width = 400,
   height = 300,
   srcSetData,
@@ -101,3 +101,5 @@ export default ({
     </ImageParent>
   );
 };
+
+export default Image;

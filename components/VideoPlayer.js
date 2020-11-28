@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
-export default ({
+const VideoPlayer = ({
   height = 210,
   width = 375,
   url = '/mp3/Blondish_ft_Bahramji_-_Laberinto[Youtubetomp3.sc].mp3',
@@ -26,3 +26,5 @@ export default ({
     />
   );
 };
+
+export default VideoPlayer;

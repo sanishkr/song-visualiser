@@ -10,7 +10,7 @@ const Card = styled.div`
   ${props => (props.rounded ? tw`rounded` : ``)};
 `;
 
-export default ({ data }) => {
+const ArticleCard = ({ data }) => {
   const { id, title, description, imgUrl, imgAlt, tags } = data;
   return (
     <div css={tw`w-full max-w-sm sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4`}>
@@ -26,3 +26,5 @@ export default ({ data }) => {
     </div>
   );
 };
+
+export default ArticleCard;

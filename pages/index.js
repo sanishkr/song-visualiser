@@ -177,7 +177,8 @@ const TrackInfo = styled.div`
   ${tw`font-mono text-sm font-light`};
   ${({ isFS }) => (isFS ? tw`text-lg text-gray-200 ` : tw`text-gray-700`)};
 `;
-export default () => {
+
+const Index = () => {
   const [bg, setBg] = useState();
   const [vis, setVis] = useState();
   const [vol, setVol] = useState(0.9);
@@ -344,3 +345,5 @@ export default () => {
     </div>
   );
 };
+
+export default Index;
