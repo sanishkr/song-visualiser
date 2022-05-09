@@ -1,5 +1,5 @@
 import React from 'react';
-import './Player.css';
+import '../pages/Player.css';
 
 const Player = props => {
   const backgroundStyles = {
@@ -111,4 +111,4 @@ const Player = props => {
   );
 };
 
-export default Player;
+export { Player };
