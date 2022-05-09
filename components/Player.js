@@ -98,6 +98,10 @@ const Player = props => {
                   ? '/images/icons8-play-50.png'
                   : '/images/icons8-pause-50.png'
               }
+              onClick={e => {
+                console.log('trying to toggling play...');
+                player.togglePlay();
+              }}
             />
             <img
               className="h-8"
