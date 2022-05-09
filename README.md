@@ -1,4 +1,4 @@
-# NextJS boilerplate with Tailwind CSS and Styled-Components
+# Spotify ReadOnly | NextJS boilerplate with Tailwind CSS and Styled-Components
 
 It provides the best of all worlds.
 ***
