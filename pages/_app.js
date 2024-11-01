@@ -1,18 +1,14 @@
-import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
+import React from 'react';
 
 import { ThemeProvider } from 'styled-components';
-
-import withRedux from 'next-redux-wrapper';
-import { Provider } from 'react-redux';
-import makeStore from '../store';
 
 import '../assets/css/index.css';
 
 class NextApp extends App {
   render() {
-    const { Component, pageProps, store } = this.props;
+    const { Component, pageProps } = this.props;
     return (
       <>
         <Head>
@@ -28,13 +24,11 @@ class NextApp extends App {
           />
           {/* <link rel="icon" sizes="192x192" href={favicon} /> */}
         </Head>
-        <Provider store={store}>
-          <ThemeProvider theme={{}}>
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </Provider>
+        <ThemeProvider theme={{}}>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </>
     );
   }
 }
-export default withRedux(makeStore)(NextApp);
+export default NextApp;

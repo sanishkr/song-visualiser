@@ -1,21 +1,20 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { findDOMNode } from 'react-dom';
-import tw from 'twin.macro';
-import styled, { css } from 'styled-components';
-import AudioSpectrum from '../utils/AudioSpectrum';
-import screenfull from 'screenfull';
 import _ from 'lodash';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { findDOMNode } from 'react-dom';
+import screenfull from 'screenfull';
+import styled, { css } from 'styled-components';
+import tw from 'twin.macro';
+import AudioSpectrum from '../utils/AudioSpectrum';
 // import NoSleep from 'nosleep.js';
 
 import ReactAudioPlayer from 'react-audio-player';
 // import AudioPlayer from 'react-h5-audio-player';
 // import 'react-h5-audio-player/lib/styles.css';
 
+import Image from '../atoms/Image';
 import { templates } from '../config/visualisations';
 import { KFAnimations } from '../utils';
-import VideoPlayer from '../components/VideoPlayer';
-import Image from '../atoms/Image';
 
 const FSIcon = () => (
   <svg
@@ -90,7 +89,7 @@ const ExitFSIcon = () => (
     </g>
   </svg>
 );
-const getRandomItem = items => {
+const getRandomItem = (items) => {
   return items[Math.floor(Math.random() * items.length)];
 };
 const StyledWrapper = styled.div`
@@ -98,7 +97,7 @@ const StyledWrapper = styled.div`
 `;
 const StyledSkin = styled.div`
   & > div {
-    ${props =>
+    ${(props) =>
       props.show
         ? css`
             animation: ${KFAnimations.fadeIn} 0.4s ease-in both;
@@ -288,7 +287,7 @@ const Index = () => {
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
             onEnded={() => setPlaying(false)}
-            onVolumeChanged={e => {
+            onVolumeChanged={(e) => {
               setVol(e.target.volume);
               // pref.volume = e.target.volume;
               // localStorage.setItem('preferences', JSON.stringify(pref));
